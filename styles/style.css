@@ -1,0 +1,15 @@
+.drop-zone {
+    border: 2px dashed #cbd5e1;
+    transition: all 0.3s ease;
+}
+.drop-zone.drag-over {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.scrollbar-thin::-webkit-scrollbar { width: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: #f1f1f1; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
