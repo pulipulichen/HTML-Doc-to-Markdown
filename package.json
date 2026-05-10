@@ -1,0 +1,11 @@
+{
+  "name": "html-doc-to-markdown",
+  "version": "1.0.0",
+  "description": "Multi-Format Office to Obsidian Converter",
+  "scripts": {
+    "start": "sudo docker compose up --build --exit-code-from test-runner"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}

@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Format Office to Obsidian Converter</title>
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="apple-touch-icon" href="assets/favicon/favicon.png">
+    <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入必要的函式庫 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
@@ -76,5 +83,20 @@
     <script src="scripts/processors.js"></script>
     <script src="scripts/ui-utils.js"></script>
     <script src="scripts/main.js"></script>
+
+    <!-- 註冊 Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker 註冊成功: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker 註冊失敗: ', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

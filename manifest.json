@@ -1,0 +1,16 @@
+{
+  "name": "Multi-Format Office to Obsidian Converter",
+  "short_name": "Office2Obsdn",
+  "description": "支援 Docx, Pptx, Pdf, Odt, Odp 的全能 Office 轉 Obsidian 轉換器",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4f46e5",
+  "background_color": "#f8fafc",
+  "icons": [
+    {
+      "src": "assets/favicon/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
