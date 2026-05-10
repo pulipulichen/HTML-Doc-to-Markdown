@@ -1,9 +1,12 @@
+/* jshint esversion: 11 */
 // --- Globals & Initializations ---
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
+const urlInput = document.getElementById('urlInput');
+const urlConvertBtn = document.getElementById('urlConvertBtn');
 const status = document.getElementById('status');
 const actionButtons = document.getElementById('actionButtons');
 const downloadBtn = document.getElementById('downloadBtn');
@@ -16,3 +19,40 @@ const fileTypeBadge = document.getElementById('fileTypeBadge');
 let currentData = { markdown: '', images: [], fileName: '', extension: '' };
 
 const turndownService = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
+
+turndownService.addRule('tables', {
+    filter: 'table',
+    replacement: function (content, node) {
+        const rows = Array.from(node.querySelectorAll('tr')).map(row =>
+            Array.from(row.children)
+                .filter(cell => ['TH', 'TD'].includes(cell.tagName))
+                .map(cell => cleanMarkdownTableCell(cell.textContent))
+        ).filter(row => row.length > 0);
+
+        return rows.length > 0 ? `\n\n${rowsToMarkdownTable(rows)}\n\n` : '';
+    }
+});
+
+function rowsToMarkdownTable(rows) {
+    const columnCount = Math.max(...rows.map(row => row.length));
+    const normalizedRows = rows.map(row => normalizeTableRow(row, columnCount));
+    const header = normalizedRows[0];
+    const body = normalizedRows.slice(1);
+    const divider = Array(columnCount).fill('---');
+    const tableRows = [header, divider, ...body];
+
+    return tableRows.map(row => `| ${row.join(' | ')} |`).join('\n');
+}
+
+function normalizeTableRow(row, columnCount) {
+    const normalized = row.slice(0, columnCount);
+    while (normalized.length < columnCount) normalized.push('');
+    return normalized;
+}
+
+function cleanMarkdownTableCell(value) {
+    return (value || '')
+        .replace(/\|/g, '\\|')
+        .replace(/\s+/g, ' ')
+        .trim();
+}

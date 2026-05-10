@@ -1,3 +1,4 @@
+/* jshint esversion: 11, module: true */
 import { test, expect } from '@playwright/test';
 
 test('頁面應該正確載入並顯示標題', async ({ page }) => {
@@ -22,10 +23,16 @@ test('頁面應該正確載入並顯示標題', async ({ page }) => {
   await expect(dropZone).toBeVisible();
   await expect(dropZone).toContainText('拖放檔案到這裡');
 
+  const urlInput = page.locator('#urlInput');
+  await expect(urlInput).toBeVisible();
+  await expect(urlInput).toHaveAttribute('placeholder', /Google Drive/);
+  await expect(urlInput).toHaveValue(/1HRAvOD8zdX7w6uB15Odd7OpWcZXYG3hvy8BG2TPCmmg/);
+
   // 5. 驗證支援的格式文字
   const formats = page.locator('header p');
   await expect(formats).toContainText('Docx');
   await expect(formats).toContainText('Pdf');
+  await expect(formats).toContainText('Markdown table');
 
   // 6. 最終檢查有無 console error
   await page.waitForLoadState('networkidle');

@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.2] - 2026-05-10
+
+### Added in 0.0.2
+
+- 支援輸入檔案網址，下載後直接轉換為 Markdown。
+- 支援 Google Docs 匯出為 `docx`、Google Slides 匯出為 `pptx` 後轉換。
+- 支援 Google Drive 檔案連結轉換為直接下載網址後處理。
+- 支援將 `docx`、`pptx`、`odt`、`odp` 中的表格保留為 Markdown table。
+- 新增預填 Google Doc 範例網址，方便快速測試網址轉換。
+
+### Changed in 0.0.2
+
+- 更新 Service Worker 快取版本，確保網址轉換與表格支援的前端資源會重新載入。
+- 更新端對端測試，檢查網址輸入欄、Google Doc 範例與表格支援文案。
+
 ## [0.0.1] - 2026-05-10
 
 ### Added

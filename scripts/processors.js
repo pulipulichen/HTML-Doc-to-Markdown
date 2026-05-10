@@ -1,3 +1,4 @@
+/* jshint esversion: 11 */
 // --- Processors ---
 
 async function processDocx(file) {
@@ -32,8 +33,7 @@ async function processPptx(file) {
     for (let i = 0; i < slidePaths.length; i++) {
         const xml = await zip.file(slidePaths[i]).async('string');
         const doc = parser.parseFromString(xml, "text/xml");
-        const texts = Array.from(doc.getElementsByTagName('a:t')).map(n => n.textContent).join(' ');
-        mdContent += `## Slide ${i+1}\n\n${texts}\n\n---\n\n`;
+        mdContent += `## Slide ${i+1}\n\n${extractPowerPointSlideMarkdown(doc)}\n\n---\n\n`;
     }
 
     if (currentData.images.length > 0) {
@@ -65,11 +65,7 @@ async function processOpenDocument(file, type) {
     
     let mdContent = `# ${currentData.fileName}\n\n`;
 
-    // Extract Text
-    const paragraphs = doc.getElementsByTagName('text:p');
-    for (const p of paragraphs) {
-        mdContent += p.textContent + "\n\n";
-    }
+    mdContent += extractOpenDocumentMarkdown(doc) + "\n\n";
 
     // Extract Images (ODT/ODP 圖片通常在 Pictures/ 資料夾)
     const pictures = Object.keys(zip.files).filter(p => p.startsWith('Pictures/'));
@@ -84,4 +80,69 @@ async function processOpenDocument(file, type) {
     }
 
     currentData.markdown = mdContent;
+}
+
+function extractPowerPointSlideMarkdown(doc) {
+    const tableNodes = Array.from(doc.getElementsByTagName('a:tbl'));
+    const bodyText = Array.from(doc.getElementsByTagName('a:t'))
+        .filter(node => !hasAncestor(node, 'a:tbl'))
+        .map(node => node.textContent.trim())
+        .filter(Boolean)
+        .join(' ');
+
+    const tableMarkdown = tableNodes
+        .map(tableNode => tableNodeToMarkdown(tableNode, 'a:tr', 'a:tc', 'a:t'))
+        .filter(Boolean)
+        .join('\n\n');
+
+    return [bodyText, tableMarkdown].filter(Boolean).join('\n\n');
+}
+
+function extractOpenDocumentMarkdown(doc) {
+    const root = doc.getElementsByTagName('office:text')[0] || doc.getElementsByTagName('office:presentation')[0] || doc.documentElement;
+    return Array.from(root.children)
+        .map(node => openDocumentNodeToMarkdown(node))
+        .filter(Boolean)
+        .join('\n\n');
+}
+
+function openDocumentNodeToMarkdown(node) {
+    if (node.tagName === 'table:table') {
+        return tableNodeToMarkdown(node, 'table:table-row', 'table:table-cell', 'text:p');
+    }
+
+    if (node.tagName === 'text:h') {
+        return `## ${node.textContent.trim()}`;
+    }
+
+    if (node.tagName === 'text:p') {
+        return node.textContent.trim();
+    }
+
+    return Array.from(node.children || [])
+        .map(child => openDocumentNodeToMarkdown(child))
+        .filter(Boolean)
+        .join('\n\n');
+}
+
+function tableNodeToMarkdown(tableNode, rowTag, cellTag, textTag) {
+    const rows = Array.from(tableNode.getElementsByTagName(rowTag)).map(rowNode => {
+        const cells = Array.from(rowNode.getElementsByTagName(cellTag)).map(cellNode => {
+            const textNodes = Array.from(cellNode.getElementsByTagName(textTag));
+            const cellText = textNodes.length > 0 ? textNodes.map(textNode => textNode.textContent).join(' ') : cellNode.textContent;
+            return cleanMarkdownTableCell(cellText);
+        });
+        return cells;
+    }).filter(row => row.length > 0);
+
+    return rows.length > 0 ? rowsToMarkdownTable(rows) : '';
+}
+
+function hasAncestor(node, tagName) {
+    let current = node.parentNode;
+    while (current) {
+        if (current.tagName === tagName) return true;
+        current = current.parentNode;
+    }
+    return false;
 }

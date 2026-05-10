@@ -1,4 +1,5 @@
-const CACHE_NAME = 'office-to-obsidian-v1';
+/* jshint esversion: 11 */
+const CACHE_NAME = 'office-to-obsidian-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
