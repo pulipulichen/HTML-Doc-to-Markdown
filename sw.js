@@ -5,7 +5,6 @@ const ASSETS_TO_CACHE = [
   './styles/style.css',
   './scripts/globals.js',
   './scripts/processors.js',
-  './scripts/ui-utils.js',
   './scripts/main.js',
   './manifest.json',
   './assets/favicon/favicon.png',

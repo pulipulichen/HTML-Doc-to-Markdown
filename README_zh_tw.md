@@ -69,7 +69,6 @@ npm start
 ├─ scripts/
 │  ├─ globals.js
 │  ├─ processors.js
-│  ├─ ui-utils.js
 │  └─ main.js
 ├─ manifest.json
 ├─ sw.js

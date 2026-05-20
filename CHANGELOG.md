@@ -27,12 +27,15 @@
 - Updated Tailwind script loading and Service Worker cache entries to use local paths, and bumped the cache version to refresh existing clients.
 - Refactored `scripts/main.js` into focused app modules (`messages`, `file-conversion`, `url-conversion`, `export-zip`, `event-bindings`) and kept `main.js` as a small bootstrap entry.
 - Split previous `scripts/ui-utils.js` responsibilities into dedicated UI modules (`result-preview`, `image-modal`, `status-message`) to align files with business logic boundaries.
+- Removed the obsolete `scripts/ui-utils.js` stub after completing the UI-module migration to avoid redundant files.
 - Moved per-file JSHint ES-version directives into centralized lint config (`.jslintrc` and `.jshintrc`) and removed inline `/* jshint esversion: 11 */` headers.
+- Removed stale `./scripts/ui-utils.js` from the Service Worker precache list to keep offline assets in sync with the current script graph.
 
 ### Documentation (0.0.2)
 
 - Reorganized `README.md` into a clear, maintainable English guide aligned with current app behavior and constraints.
 - Added synchronized bilingual documentation via `README_zh_tw.md`, including language switch links and matching section structure.
+- Updated project-structure sections in both `README.md` and `README_zh_tw.md` to remove the deleted `scripts/ui-utils.js` entry.
 
 ## 0.0.1
 
