@@ -1,5 +1,4 @@
-/* jshint esversion: 11 */
-const CACHE_NAME = 'office-to-obsidian-v2';
+const CACHE_NAME = 'office-to-obsidian-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -10,12 +9,13 @@ const ASSETS_TO_CACHE = [
   './scripts/main.js',
   './manifest.json',
   './assets/favicon/favicon.png',
-  'https://cdn.tailwindcss.com',
-  'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js',
-  'https://unpkg.com/turndown/dist/turndown.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js'
+  './scripts/vendor/tailwindcss.cdn.js',
+  './scripts/vendor/mammoth.browser.min.js',
+  './scripts/vendor/turndown.js',
+  './scripts/vendor/jszip.min.js',
+  './scripts/vendor/FileSaver.min.js',
+  './scripts/vendor/pdf.min.js',
+  './scripts/vendor/pdf.worker.min.js'
 ];
 
 // 安裝 Service Worker 並快取資產

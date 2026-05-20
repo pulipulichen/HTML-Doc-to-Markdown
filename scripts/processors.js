@@ -1,4 +1,3 @@
-/* jshint esversion: 11 */
 // --- Processors ---
 
 async function processDocx(file) {

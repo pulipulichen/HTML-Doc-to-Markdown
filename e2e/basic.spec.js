@@ -1,50 +1,95 @@
 /* jshint esversion: 11, module: true */
+/* global window */
 import { test, expect } from '@playwright/test';
 
-test('頁面應該正確載入並顯示標題', async ({ page }) => {
-  // 1. 導航至應用程式
-  await page.goto('http://localhost:8080');
+test('Page initializes in English when language is stored as en', async ({ page }) => {
+  // 1. Force stored language before the app initializes
+  await page.addInitScript(() => {
+    window.localStorage.setItem('htmlDocToMarkdown_language', 'en');
+  });
 
-  // 2. 設定 console error 追蹤
+  // 2. Setup console error tracking and navigate
   const consoleErrors = [];
   page.on('console', msg => {
     if (msg.type() === 'error') {
       consoleErrors.push(msg.text());
     }
   });
+  await page.goto('http://localhost:8080');
 
-  // 3. 驗證標題是否存在
-  const header = page.locator('h1');
-  await expect(header).toBeVisible();
-  await expect(header).toHaveText('全能 Office 轉 Obsidian');
+  // 3. Verify language state and translated UI in English
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  await expect(page.locator('#languageSelect')).toHaveValue('en');
+  await expect(page.locator('h1')).toHaveText('Multi-Format Document to Markdown');
+  await expect(page.locator('#dropZone p').first()).toHaveText('Drop files here');
+  await expect(page.locator('#urlInput')).toHaveAttribute('placeholder', /Google Drive \/ Docs \/ Slides link/);
 
-  // 4. 驗證拖放區域是否存在
-  const dropZone = page.locator('#dropZone');
-  await expect(dropZone).toBeVisible();
-  await expect(dropZone).toContainText('拖放檔案到這裡');
-
-  const urlInput = page.locator('#urlInput');
-  await expect(urlInput).toBeVisible();
-  await expect(urlInput).toHaveAttribute('placeholder', /Google Drive/);
-  await expect(urlInput).toHaveValue(/1HRAvOD8zdX7w6uB15Odd7OpWcZXYG3hvy8BG2TPCmmg/);
-
-  // 5. 驗證支援的格式文字
-  const formats = page.locator('header p');
-  await expect(formats).toContainText('Docx');
-  await expect(formats).toContainText('Pdf');
-  await expect(formats).toContainText('Markdown table');
-
-  // 6. 最終檢查有無 console error
+  // 4. Final check: no console errors
   await page.waitForLoadState('networkidle');
-  
-  // 排除一些外部 library 可能產生的警告或非致命錯誤 (如果有需要的話)
   expect(consoleErrors).toHaveLength(0);
 });
 
-test('點擊拖放區域應該觸發檔案選擇', async ({ page }) => {
+test('Manual language switch updates UI and persists to localStorage', async ({ page }) => {
+  // 1. Start from English to ensure deterministic state
+  await page.addInitScript(() => {
+    window.localStorage.setItem('htmlDocToMarkdown_language', 'en');
+  });
+
+  // 2. Setup console error tracking and navigate
+  const consoleErrors = [];
+  page.on('console', msg => {
+    if (msg.type() === 'error') {
+      consoleErrors.push(msg.text());
+    }
+  });
   await page.goto('http://localhost:8080');
-  
-  // 檢查 hidden input 是否存在
-  const fileInput = page.locator('#fileInput');
-  await expect(fileInput).toBeAttached();
+
+  // 3. Switch language to zh-TW
+  await page.selectOption('#languageSelect', 'zh-TW');
+
+  // 4. Verify language state and translated UI in zh-TW
+  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-TW');
+  await expect(page.locator('#languageSelect')).toHaveValue('zh-TW');
+  await expect(page.locator('h1')).toHaveText('全能 Document 格式 轉 Markdown');
+  await expect(page.locator('#dropZone p').first()).toHaveText('拖放檔案到這裡');
+  await expect(page.locator('#urlInput')).toHaveAttribute('placeholder', /Google Drive \/ Docs \/ Slides 連結/);
+
+  // 5. Verify persistence is written to localStorage
+  const storedLanguage = await page.evaluate(() => window.localStorage.getItem('htmlDocToMarkdown_language'));
+  expect(storedLanguage).toBe('zh-TW');
+
+  // 6. Final check: no console errors
+  await page.waitForLoadState('networkidle');
+  expect(consoleErrors).toHaveLength(0);
+});
+
+test('Selected language remains after page reload', async ({ page }) => {
+  // 1. Force stored language as zh-TW before first load
+  await page.addInitScript(() => {
+    window.localStorage.setItem('htmlDocToMarkdown_language', 'zh-TW');
+  });
+
+  // 2. Setup console error tracking and navigate
+  const consoleErrors = [];
+  page.on('console', msg => {
+    if (msg.type() === 'error') {
+      consoleErrors.push(msg.text());
+    }
+  });
+  await page.goto('http://localhost:8080');
+
+  // 3. Verify language before reload
+  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-TW');
+  await expect(page.locator('#languageSelect')).toHaveValue('zh-TW');
+  await expect(page.locator('h1')).toHaveText('全能 Document 格式 轉 Markdown');
+
+  // 4. Reload and verify the same language remains
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('lang', 'zh-TW');
+  await expect(page.locator('#languageSelect')).toHaveValue('zh-TW');
+  await expect(page.locator('h1')).toHaveText('全能 Document 格式 轉 Markdown');
+
+  // 5. Final check: no console errors
+  await page.waitForLoadState('networkidle');
+  expect(consoleErrors).toHaveLength(0);
 });

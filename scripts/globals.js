@@ -1,13 +1,12 @@
-/* jshint esversion: 11 */
 // --- Globals & Initializations ---
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = './scripts/vendor/pdf.worker.min.js';
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const urlInput = document.getElementById('urlInput');
 const urlConvertBtn = document.getElementById('urlConvertBtn');
-const status = document.getElementById('status');
+const statusMessageEl = document.getElementById('status');
 const actionButtons = document.getElementById('actionButtons');
 const downloadBtn = document.getElementById('downloadBtn');
 const markdownPreview = document.getElementById('markdownPreview');
@@ -15,8 +14,16 @@ const imagePreview = document.getElementById('imagePreview');
 const imageCountDisplay = document.getElementById('imageCount');
 const previewContainer = document.getElementById('previewContainer');
 const fileTypeBadge = document.getElementById('fileTypeBadge');
+const imageModal = document.getElementById('imageModal');
+const imageModalPreview = document.getElementById('imageModalPreview');
+const imageModalClose = document.getElementById('imageModalClose');
+const imageModalDownload = document.getElementById('imageModalDownload');
+const imageModalFileName = document.getElementById('imageModalFileName');
 
 let currentData = { markdown: '', images: [], fileName: '', extension: '' };
+let activeImageObjectUrl = '';
+let activeImageIndex = -1;
+let previewImageObjectUrls = [];
 
 const turndownService = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
 

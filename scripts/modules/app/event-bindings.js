@@ -1,0 +1,52 @@
+function initMainEventListeners() {
+    bindDropZoneEvents();
+    bindFileInputEvents();
+    bindUrlConvertEvents();
+    bindExportEvents();
+    bindImagePreviewEvents();
+}
+
+function bindDropZoneEvents() {
+    dropZone.addEventListener('click', function () {
+        fileInput.click();
+    });
+
+    dropZone.addEventListener('dragover', function (event) {
+        event.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
+
+    dropZone.addEventListener('dragleave', function () {
+        dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', function (event) {
+        event.preventDefault();
+        dropZone.classList.remove('drag-over');
+        const file = event.dataTransfer.files[0];
+        if (file) handleFile(file);
+    });
+}
+
+function bindFileInputEvents() {
+    fileInput.addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        if (file) handleFile(file);
+    });
+}
+
+function bindUrlConvertEvents() {
+    urlConvertBtn.addEventListener('click', handleUrlConvert);
+    urlInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            handleUrlConvert();
+        }
+    });
+}
+
+function bindExportEvents() {
+    downloadBtn.addEventListener('click', function () {
+        downloadCurrentAsZip();
+    });
+}

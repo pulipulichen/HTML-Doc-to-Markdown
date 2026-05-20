@@ -1,0 +1,18 @@
+{
+  "browser": true,
+  "devel": true,
+  "esversion": 11,
+  "maxerr": 1000,
+  "predef": [
+    "window",
+    "document",
+    "navigator",
+    "localStorage",
+    "CustomEvent",
+    "pdfjsLib",
+    "mammoth",
+    "TurndownService",
+    "JSZip",
+    "saveAs"
+  ]
+}

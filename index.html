@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Format Office to Obsidian Converter</title>
+    <title data-i18n-text="app.pageTitle">Multi-Format Office to Obsidian Converter</title>
     
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
@@ -11,25 +11,32 @@
     <link rel="apple-touch-icon" href="assets/favicon/favicon.png">
     <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="scripts/vendor/tailwindcss.cdn.js"></script>
     <!-- 引入必要的函式庫 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="scripts/vendor/mammoth.browser.min.js"></script>
+    <script src="scripts/vendor/turndown.js"></script>
+    <script src="scripts/vendor/jszip.min.js"></script>
+    <script src="scripts/vendor/FileSaver.min.js"></script>
     <!-- PDF.js 用於處理 PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="scripts/vendor/pdf.min.js"></script>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body class="bg-slate-50 min-h-screen font-sans text-slate-900">
 
     <div class="max-w-6xl mx-auto py-10 px-4">
         <header class="text-center mb-10">
+            <div class="flex justify-end mb-4">
+                <label for="languageSelect" class="text-sm font-semibold text-slate-600 mr-2" data-i18n-text="language.label">Language</label>
+                <select id="languageSelect" class="rounded-lg border border-slate-300 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="en">English</option>
+                    <option value="zh-TW">繁體中文</option>
+                </select>
+            </div>
             <div class="inline-flex items-center justify-center p-3 bg-indigo-600 rounded-xl mb-4 shadow-lg shadow-indigo-200">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
             </div>
-            <h1 class="text-3xl font-bold text-slate-800 mb-2">全能 Document 格式 轉 Markdown</h1>
-            <p class="text-slate-600 font-medium">支援 <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, <span class="text-emerald-600">Odp</span>，並保留表格為 Markdown table</p>
+            <h1 class="text-3xl font-bold text-slate-800 mb-2" data-i18n-text="app.title">Multi-Format Document to Markdown</h1>
+            <p class="text-slate-600 font-medium" data-i18n="app.subtitle">Supports <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, and <span class="text-emerald-600">Odp</span> while preserving tables as Markdown tables</p>
         </header>
 
         <!-- 操作區 -->
@@ -39,29 +46,30 @@
                     <svg class="w-12 h-12 text-slate-400 mb-4 group-hover:text-indigo-500 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                     </svg>
-                    <p class="text-lg text-slate-700 font-semibold">拖放檔案到這裡</p>
-                    <p class="text-sm text-slate-400 mt-2">支援 docx, pptx, pdf, odt, odp 格式與表格轉換</p>
+                    <p class="text-lg text-slate-700 font-semibold" data-i18n-text="dropzone.title">Drop files here</p>
+                    <p class="text-sm text-slate-400 mt-2" data-i18n-text="dropzone.hint">Supports docx, pptx, pdf, odt, odp formats with table conversion</p>
                     <input type="file" id="fileInput" class="hidden" accept=".pdf,.odt,.odp,.docx,.pptx">
                 </div>
             </div>
 
             <div class="border border-slate-200 rounded-xl p-4 mb-6 bg-slate-50">
-                <label for="urlInput" class="block text-sm font-bold text-slate-700 mb-2">或輸入檔案網址</label>
+                <label for="urlInput" class="block text-sm font-bold text-slate-700 mb-2" data-i18n-text="url.label">Or enter a file URL</label>
                 <div class="flex flex-col sm:flex-row gap-3">
                     <input
                         type="url"
                         id="urlInput"
                         class="flex-1 rounded-lg border border-slate-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                        placeholder="https://example.com/file.docx 或 Google Drive / Docs / Slides 連結"
+                        placeholder="https://example.com/file.docx or a Google Drive / Docs / Slides link"
+                        data-i18n-placeholder="url.placeholder"
                         value="https://docs.google.com/document/d/1HRAvOD8zdX7w6uB15Odd7OpWcZXYG3hvy8BG2TPCmmg/edit?tab=t.0"
                         autocomplete="off"
                     >
-                    <button id="urlConvertBtn" class="bg-slate-800 hover:bg-slate-900 text-white px-6 py-3 rounded-lg font-bold transition">
-                        下載並轉換
+                    <button id="urlConvertBtn" class="bg-slate-800 hover:bg-slate-900 text-white px-6 py-3 rounded-lg font-bold transition" data-i18n-text="url.buttonConvert">
+                        Download and convert
                     </button>
                 </div>
-                <p class="text-xs text-slate-500 mt-2">
-                    範例已填入 Google Doc 連結；Google Docs 會匯出為 DOCX，Google Slides 會匯出為 PPTX。
+                <p class="text-xs text-slate-500 mt-2" data-i18n-text="url.example">
+                    A Google Doc sample link is prefilled. Google Docs exports as DOCX, and Google Slides exports as PPTX.
                 </p>
             </div>
 
@@ -70,7 +78,7 @@
             <div id="actionButtons" class="hidden flex justify-center gap-4">
                 <button id="downloadBtn" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold transition flex items-center gap-2 shadow-md">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    下載 Obsidian ZIP 打包檔
+                    <span data-i18n-text="actions.downloadZip">Download Obsidian ZIP package</span>
                 </button>
             </div>
         </div>
@@ -79,7 +87,7 @@
         <div id="previewContainer" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[600px]">
                 <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
-                    <span class="text-sm font-bold text-slate-700">Markdown 預覽</span>
+                    <span class="text-sm font-bold text-slate-700" data-i18n-text="preview.markdown">Markdown Preview</span>
                     <span class="text-xs font-bold px-2 py-1 rounded" id="fileTypeBadge"></span>
                 </div>
                 <div class="p-6 flex-grow overflow-auto scrollbar-thin">
@@ -89,7 +97,7 @@
             
             <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[600px]">
                 <div class="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
-                    <span class="text-sm font-bold text-slate-700">附件資源 (<span id="imageCount">0</span>)</span>
+                    <span class="text-sm font-bold text-slate-700"><span data-i18n-text="preview.attachments">Attachments</span> (<span id="imageCount">0</span>)</span>
                 </div>
                 <div id="imagePreview" class="p-4 grid grid-cols-2 sm:grid-cols-3 gap-4 flex-grow overflow-auto bg-slate-50/50 scrollbar-thin">
                     <!-- 圖片會顯示在這裡 -->
@@ -98,10 +106,51 @@
         </div>
     </div>
 
+    <div id="imageModal" class="hidden fixed inset-0 z-50 bg-slate-900/80 p-4 sm:p-8">
+        <div class="max-w-5xl h-full mx-auto flex flex-col">
+            <div class="flex justify-end mb-3">
+                <button
+                    id="imageModalClose"
+                    type="button"
+                    class="bg-slate-800/80 hover:bg-slate-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition"
+                    data-i18n-text="preview.closeImagePreview"
+                >
+                    Close
+                </button>
+            </div>
+            <div class="bg-white rounded-xl shadow-xl p-4 sm:p-6 flex-1 flex flex-col min-h-0">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                    <span id="imageModalFileName" class="text-sm font-semibold text-slate-700 truncate"></span>
+                    <button
+                        id="imageModalDownload"
+                        type="button"
+                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition"
+                        data-i18n-text="preview.downloadSingleImage"
+                    >
+                        Download image
+                    </button>
+                </div>
+                <div class="flex-1 min-h-0 bg-slate-100 rounded-lg overflow-auto">
+                    <img id="imageModalPreview" class="w-full h-full object-contain" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 應用程式邏輯 -->
+    <script src="scripts/modules/i18n/en.js"></script>
+    <script src="scripts/modules/i18n/zh-TW.js"></script>
+    <script src="scripts/modules/i18n.js"></script>
     <script src="scripts/globals.js"></script>
     <script src="scripts/processors.js"></script>
-    <script src="scripts/ui-utils.js"></script>
+    <script src="scripts/modules/app/messages.js"></script>
+    <script src="scripts/modules/ui/image-modal.js"></script>
+    <script src="scripts/modules/ui/result-preview.js"></script>
+    <script src="scripts/modules/ui/status-message.js"></script>
+    <script src="scripts/modules/app/file-conversion.js"></script>
+    <script src="scripts/modules/app/url-conversion.js"></script>
+    <script src="scripts/modules/app/export-zip.js"></script>
+    <script src="scripts/modules/app/event-bindings.js"></script>
     <script src="scripts/main.js"></script>
 
     <!-- 註冊 Service Worker -->
