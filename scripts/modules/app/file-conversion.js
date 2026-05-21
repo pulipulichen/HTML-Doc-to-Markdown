@@ -14,7 +14,8 @@ async function handleFile(file) {
     try {
         await processFileByExtension(ext, file);
         displayResult();
-        showMessage(tMessage('status.parseSuccess', {}, 'Parsing completed successfully!'), 'success');
+        statusMessageEl.classList.add('hidden');
+        statusMessageEl.textContent = '';
     } catch (err) {
         console.error(err);
         showMessage(tMessage('status.convertFailed', { message: err.message }, 'Conversion failed: ' + err.message), 'error');

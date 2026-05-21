@@ -50,6 +50,13 @@ function bindExportEvents() {
     downloadBtn.addEventListener('click', function () {
         downloadCurrentAsZip();
     });
+
+    downloadMarkdownBtn.addEventListener('click', function () {
+        const downloaded = downloadCurrentAsMarkdown();
+        if (!downloaded) {
+            showMessage(tMessage('status.downloadMdEmpty', {}, 'No Markdown content to download yet.'), 'error');
+        }
+    });
 }
 
 function bindClipboardEvents() {

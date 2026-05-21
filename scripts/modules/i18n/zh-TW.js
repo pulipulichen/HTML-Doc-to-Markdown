@@ -20,10 +20,11 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
         example: '範例已填入 Google Doc 連結；Google Docs 會匯出為 DOCX，Google Slides 會匯出為 PPTX。'
     },
     actions: {
-        downloadZip: '下載 Obsidian ZIP 打包檔'
+        downloadZip: '下載 ZIP'
     },
     preview: {
         markdown: 'Markdown 預覽',
+        downloadMarkdown: '下載 MD',
         copyMarkdown: '複製',
         attachments: '附件資源',
         copyImage: '複製',
@@ -43,6 +44,7 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
         downloadingFileFromSource: '正在下載 {source} 檔案...',
         urlConvertFailed: '網址轉換失敗：{message}',
         copyEmpty: '目前沒有可複製的內容。',
+        downloadMdEmpty: '目前沒有可下載的 Markdown 內容。',
         copySuccess: '已複製 Markdown 到剪貼簿！',
         copyFailed: '無法複製 Markdown，請手動複製。',
         copyImageSuccess: '已複製圖片到剪貼簿！',

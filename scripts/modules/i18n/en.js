@@ -20,10 +20,11 @@ window.I18N_TRANSLATIONS.en = {
         example: 'A Google Doc sample link is prefilled. Google Docs exports as DOCX, and Google Slides exports as PPTX.'
     },
     actions: {
-        downloadZip: 'Download Obsidian ZIP package'
+        downloadZip: 'Download ZIP'
     },
     preview: {
         markdown: 'Markdown Preview',
+        downloadMarkdown: 'Download MD',
         copyMarkdown: 'Copy',
         attachments: 'Attachments',
         copyImage: 'Copy',
@@ -43,6 +44,7 @@ window.I18N_TRANSLATIONS.en = {
         downloadingFileFromSource: 'Downloading {source} file...',
         urlConvertFailed: 'URL conversion failed: {message}',
         copyEmpty: 'Nothing to copy yet.',
+        downloadMdEmpty: 'No Markdown content to download yet.',
         copySuccess: 'Markdown copied to clipboard!',
         copyFailed: 'Unable to copy Markdown. Please copy manually.',
         copyImageSuccess: 'Image copied to clipboard!',

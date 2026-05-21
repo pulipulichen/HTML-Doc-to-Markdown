@@ -1,4 +1,5 @@
 function displayResult() {
+    workspaceLayout.classList.add('lg:grid-cols-[340px_minmax(0,1fr)]');
     previewContainer.classList.remove('hidden');
     actionButtons.classList.remove('hidden');
     markdownPreview.textContent = currentData.markdown;
