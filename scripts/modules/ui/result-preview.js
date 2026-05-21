@@ -28,11 +28,34 @@ function displayResult() {
         });
 
         const actions = document.createElement('div');
-        actions.className = 'w-full flex justify-between items-center gap-2';
+        actions.className = 'w-full flex flex-col gap-2';
 
         const span = document.createElement('span');
-        span.className = 'text-[10px] text-slate-500 truncate flex-1 text-left';
+        span.className = 'text-[10px] text-slate-500 truncate text-left';
         span.textContent = img.name;
+
+        const buttonGroup = document.createElement('div');
+        buttonGroup.className = 'w-full flex justify-end items-center gap-2';
+
+        const copyBtnSingle = document.createElement('button');
+        copyBtnSingle.type = 'button';
+        copyBtnSingle.className = 'text-[10px] px-2 py-1 rounded bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold transition';
+        copyBtnSingle.textContent = tMessage('preview.copyImage', {}, 'Copy');
+        copyBtnSingle.addEventListener('click', async function () {
+            try {
+                await copyImageToClipboard(img.blob);
+                showMessage(tMessage('status.copyImageSuccess', {}, 'Image copied to clipboard!'), 'success');
+            } catch (error) {
+                console.error('Copy image failed:', error);
+                let errorKey = 'status.copyImageFailed';
+                let fallback = 'Unable to copy image. Please download it.';
+                if (error && error.message === 'clipboard-image-unsupported') {
+                    errorKey = 'status.copyImageUnsupported';
+                    fallback = 'This browser does not support image copy.';
+                }
+                showMessage(tMessage(errorKey, {}, fallback), 'error');
+            }
+        });
 
         const downloadBtnSingle = document.createElement('button');
         downloadBtnSingle.type = 'button';
@@ -42,10 +65,25 @@ function displayResult() {
             saveAs(img.blob, img.name);
         });
 
-        actions.append(span, downloadBtnSingle);
+        buttonGroup.append(copyBtnSingle, downloadBtnSingle);
+        actions.append(span, buttonGroup);
         div.append(imgEl, actions);
         imagePreview.appendChild(div);
     });
+}
+
+async function copyImageToClipboard(blob) {
+    if (!(navigator.clipboard && typeof navigator.clipboard.write === 'function' && window.ClipboardItem && window.isSecureContext)) {
+        throw new Error('clipboard-image-unsupported');
+    }
+
+    const mimeType = blob.type || 'image/png';
+    const clipboardBlob = blob.type ? blob : new Blob([blob], { type: mimeType });
+    await navigator.clipboard.write([
+        new ClipboardItem({
+            [mimeType]: clipboardBlob
+        })
+    ]);
 }
 
 function clearPreviewImageObjectUrls() {

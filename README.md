@@ -69,7 +69,7 @@ This command runs `docker compose up --build --exit-code-from test-runner`, whic
 ├─ scripts/
 │  ├─ globals.js
 │  ├─ processors.js
-│  └─ main.js
+│  └─ modules/
 ├─ manifest.json
 ├─ sw.js
 └─ e2e/

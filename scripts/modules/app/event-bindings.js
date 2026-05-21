@@ -3,6 +3,7 @@ function initMainEventListeners() {
     bindFileInputEvents();
     bindUrlConvertEvents();
     bindExportEvents();
+    bindClipboardEvents();
     bindImagePreviewEvents();
 }
 
@@ -50,3 +51,45 @@ function bindExportEvents() {
         downloadCurrentAsZip();
     });
 }
+
+function bindClipboardEvents() {
+    copyMarkdownBtn.addEventListener('click', async function () {
+        const markdown = (currentData.markdown || '').trim();
+        if (!markdown) {
+            showMessage(tMessage('status.copyEmpty', {}, 'Nothing to copy yet.'), 'error');
+            return;
+        }
+
+        try {
+            await copyTextToClipboard(markdown);
+            showMessage(tMessage('status.copySuccess', {}, 'Markdown copied to clipboard!'), 'success');
+        } catch (error) {
+            console.error('Copy markdown failed:', error);
+            showMessage(tMessage('status.copyFailed', {}, 'Unable to copy Markdown. Please copy manually.'), 'error');
+        }
+    });
+}
+
+async function copyTextToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+    }
+
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.setAttribute('readonly', '');
+    textArea.style.position = 'fixed';
+    textArea.style.top = '-9999px';
+    document.body.appendChild(textArea);
+    textArea.select();
+    textArea.setSelectionRange(0, textArea.value.length);
+    const copied = document.execCommand('copy');
+    document.body.removeChild(textArea);
+
+    if (!copied) {
+        throw new Error('document.execCommand copy failed');
+    }
+}
+
+initMainEventListeners();

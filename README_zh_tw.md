@@ -69,7 +69,7 @@ npm start
 ├─ scripts/
 │  ├─ globals.js
 │  ├─ processors.js
-│  └─ main.js
+│  └─ modules/
 ├─ manifest.json
 ├─ sw.js
 └─ e2e/

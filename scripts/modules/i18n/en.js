@@ -24,7 +24,9 @@ window.I18N_TRANSLATIONS.en = {
     },
     preview: {
         markdown: 'Markdown Preview',
+        copyMarkdown: 'Copy',
         attachments: 'Attachments',
+        copyImage: 'Copy',
         downloadImage: 'Download',
         downloadSingleImage: 'Download image',
         closeImagePreview: 'Close'
@@ -39,7 +41,13 @@ window.I18N_TRANSLATIONS.en = {
         downloadingButton: 'Downloading...',
         downloadingFile: 'Downloading file...',
         downloadingFileFromSource: 'Downloading {source} file...',
-        urlConvertFailed: 'URL conversion failed: {message}'
+        urlConvertFailed: 'URL conversion failed: {message}',
+        copyEmpty: 'Nothing to copy yet.',
+        copySuccess: 'Markdown copied to clipboard!',
+        copyFailed: 'Unable to copy Markdown. Please copy manually.',
+        copyImageSuccess: 'Image copied to clipboard!',
+        copyImageFailed: 'Unable to copy image. Please download it.',
+        copyImageUnsupported: 'This browser does not support image copy.'
     },
     errors: {
         downloadBlockedByCors: 'Unable to download from this URL. The source site may block cross-origin browser requests. Use a direct URL with CORS enabled, or download the file first and then drag it in.',

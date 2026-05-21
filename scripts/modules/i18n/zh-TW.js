@@ -24,7 +24,9 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
     },
     preview: {
         markdown: 'Markdown 預覽',
+        copyMarkdown: '複製',
         attachments: '附件資源',
+        copyImage: '複製',
         downloadImage: '下載',
         downloadSingleImage: '下載圖片',
         closeImagePreview: '關閉'
@@ -39,7 +41,13 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
         downloadingButton: '下載中...',
         downloadingFile: '正在下載檔案...',
         downloadingFileFromSource: '正在下載 {source} 檔案...',
-        urlConvertFailed: '網址轉換失敗：{message}'
+        urlConvertFailed: '網址轉換失敗：{message}',
+        copyEmpty: '目前沒有可複製的內容。',
+        copySuccess: '已複製 Markdown 到剪貼簿！',
+        copyFailed: '無法複製 Markdown，請手動複製。',
+        copyImageSuccess: '已複製圖片到剪貼簿！',
+        copyImageFailed: '無法複製圖片，請改用下載。',
+        copyImageUnsupported: '此瀏覽器不支援複製圖片。'
     },
     errors: {
         downloadBlockedByCors: '無法從此網址下載。對方網站可能未允許瀏覽器跨網域讀取，請改用可公開存取且允許 CORS 的直連網址，或先下載後再拖放檔案。',

@@ -9,6 +9,7 @@ const urlConvertBtn = document.getElementById('urlConvertBtn');
 const statusMessageEl = document.getElementById('status');
 const actionButtons = document.getElementById('actionButtons');
 const downloadBtn = document.getElementById('downloadBtn');
+const copyMarkdownBtn = document.getElementById('copyMarkdownBtn');
 const markdownPreview = document.getElementById('markdownPreview');
 const imagePreview = document.getElementById('imagePreview');
 const imageCountDisplay = document.getElementById('imageCount');

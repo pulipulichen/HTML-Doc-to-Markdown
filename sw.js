@@ -1,11 +1,10 @@
-const CACHE_NAME = 'office-to-obsidian-v4';
+const CACHE_NAME = 'office-to-obsidian-v5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './styles/style.css',
   './scripts/globals.js',
   './scripts/processors.js',
-  './scripts/main.js',
   './manifest.json',
   './assets/favicon/favicon.png',
   './scripts/vendor/tailwindcss.cdn.js',
