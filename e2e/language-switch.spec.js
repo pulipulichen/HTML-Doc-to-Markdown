@@ -25,7 +25,7 @@ test('Manual language switch updates UI and persists to localStorage', async ({ 
   await expect(page.locator('#languageSelect')).toHaveValue('zh-TW');
   await expect(page.locator('h1')).toHaveText('全能 Document 格式 轉 Markdown');
   await expect(page.locator('#dropZone p').first()).toHaveText('拖放檔案到這裡');
-  await expect(page.locator('#urlInput')).toHaveAttribute('placeholder', /Google Drive \/ Docs \/ Slides 連結/);
+  await expect(page.locator('#urlInput')).toHaveAttribute('placeholder', /Google Drive \/ Docs \/ Slides \/ Sheets 連結/);
 
   // 5. Verify persistence is written to localStorage
   const storedLanguage = await page.evaluate(() => window.localStorage.getItem('htmlDocToMarkdown_language'));

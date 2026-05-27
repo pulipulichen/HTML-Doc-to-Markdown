@@ -22,7 +22,7 @@ test('Page initializes in English when language is stored as en', async ({ page 
   await expect(page.locator('#languageSelect')).toHaveValue('en');
   await expect(page.locator('h1')).toHaveText('Multi-Format Document to Markdown');
   await expect(page.locator('#dropZone p').first()).toHaveText('Drop files here');
-  await expect(page.locator('#urlInput')).toHaveAttribute('placeholder', /Google Drive \/ Docs \/ Slides link/);
+  await expect(page.locator('#urlInput')).toHaveAttribute('placeholder', /Google Drive \/ Docs \/ Slides \/ Sheets link/);
 
   // 4. Final check: no console errors
   await page.waitForLoadState('networkidle');

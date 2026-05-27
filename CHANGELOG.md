@@ -33,6 +33,7 @@
 - Updated the Service Worker cache version so URL-conversion and table-support assets are refreshed correctly.
 - Updated end-to-end tests to verify URL input, sample Google Doc URL content, and table-support messaging.
 - Updated Playwright E2E coverage to validate i18n initialization, manual language switching, and language persistence after reload.
+- Updated i18n E2E placeholder assertions to match the current "Google Drive / Docs / Slides / Sheets" localized copy.
 - Split the previous monolithic E2E spec into logic-based files for language initialization, manual switching, and reload persistence scenarios.
 - Updated E2E test comments and test titles to use consistent English wording.
 - Downloaded third-party runtime libraries from CDN and vendored them under `scripts/vendor/` for local loading.
