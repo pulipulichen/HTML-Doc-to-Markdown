@@ -21,6 +21,7 @@
         if (!languageTag) return '';
         const lowerTag = languageTag.toLowerCase();
         if (lowerTag === 'zh-tw' || lowerTag.startsWith('zh-hant')) return 'zh-TW';
+        if (lowerTag.startsWith('ja')) return 'ja';
         if (lowerTag.startsWith('en')) return 'en';
         return '';
     }

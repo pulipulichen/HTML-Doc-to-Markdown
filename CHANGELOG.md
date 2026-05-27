@@ -17,6 +17,7 @@
 - Added a prefilled Google Doc sample URL for faster URL conversion testing.
 - Added frontend internationalization with `en` and `zh-TW` translation dictionaries under `scripts/modules/i18n/`.
 - Added language detection and persistence (`localStorage` + browser language fallback) with runtime UI language switching.
+- Added Japanese (`ja`) UI localization, including a language-switcher option, translation dictionary, and browser-language detection support.
 - Added a root `.jslintrc` to centralize browser/global JSHint configuration for app scripts and E2E tests.
 - Added attachment image interactions: click-to-enlarge modal preview and per-image download actions in the attachments panel.
 
