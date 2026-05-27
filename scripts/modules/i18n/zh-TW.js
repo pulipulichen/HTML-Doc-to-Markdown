@@ -7,17 +7,17 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
     app: {
         pageTitle: '多格式 Office 轉 Obsidian 轉換器',
         title: '全能 Document 格式 轉 Markdown',
-        subtitle: '支援 <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, <span class="text-emerald-600">Odp</span>，並保留表格為 Markdown table'
+        subtitle: '支援 <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, <span class="text-emerald-600">Odp</span>, <span class="text-lime-600">Xlsx</span>, <span class="text-cyan-600">Ods</span>，並保留表格為 Markdown table'
     },
     dropzone: {
         title: '拖放檔案到這裡',
-        hint: '支援 docx, pptx, pdf, odt, odp 格式與表格轉換'
+        hint: '支援 docx, pptx, pdf, odt, odp, xlsx, ods 格式與表格轉換'
     },
     url: {
         label: '或輸入檔案網址',
-        placeholder: 'https://example.com/file.docx 或 Google Drive / Docs / Slides 連結',
+        placeholder: 'https://example.com/file.docx 或 Google Drive / Docs / Slides / Sheets 連結',
         buttonConvert: '下載並轉換',
-        example: '範例已填入 Google Doc 連結；Google Docs 會匯出為 DOCX，Google Slides 會匯出為 PPTX。'
+        example: '範例已填入 Google Doc 連結；Google Docs 會匯出為 DOCX，Google Slides 會匯出為 PPTX，Google Sheets 會匯出為 XLSX。'
     },
     actions: {
         downloadZip: '下載 ZIP'

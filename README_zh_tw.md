@@ -2,15 +2,17 @@
 
 [English](./README.md) | [繁體中文](./README_zh_tw.md)
 
-這是一個純瀏覽器端的文件轉換工具，可將 `docx`、`pptx`、`pdf`、`odt`、`odp` 轉為 Markdown，並把 Markdown 與擷取到的附件打包成適用於 Obsidian 的 ZIP。
+這是一個純瀏覽器端的文件轉換工具，可將 `docx`、`pptx`、`pdf`、`odt`、`odp`、`xlsx`、`ods` 轉為 Markdown，並把 Markdown 與擷取到的附件打包成適用於 Obsidian 的 ZIP。
 
 線上示範：[https://pulipulichen.github.io/HTML-Doc-to-Markdown/](https://pulipulichen.github.io/HTML-Doc-to-Markdown/)
+
+Google Sheets 範例檔案：[HTML Doc to Markdown demo](https://docs.google.com/spreadsheets/d/11pkVxcBIrDiUO3Hpg7l223awkAoz-XaTnLxlywafpUI/edit?usp=sharing)
 
 ## 功能特色
 
 - 支援拖放本機檔案，或用檔案選擇器上傳。
 - 轉換完成後可直接預覽 Markdown。
-- `docx`、`pptx`、`odt`、`odp` 的表格可保留為 Markdown table。
+- `docx`、`pptx`、`odt`、`odp`、`xlsx`、`ods` 的表格可保留為 Markdown table。
 - 可擷取文件內嵌圖片（若格式支援），並放入 `attachments/`。
 - 可下載單一 ZIP，內含：
   - `<檔名>.md`
@@ -19,12 +21,13 @@
   - 可直接下載的檔案連結
   - Google Docs 連結（匯出為 `docx`）
   - Google Slides 連結（匯出為 `pptx`）
+  - Google Sheets 連結（匯出為 `xlsx`）
   - Google Drive 檔案連結（轉為直接下載網址）
 - 具備 PWA 與 Service Worker，提供基本離線資產快取。
 
 ## 支援格式
 
-- 輸入：`docx`、`pptx`、`pdf`、`odt`、`odp`
+- 輸入：`docx`、`pptx`、`pdf`、`odt`、`odp`、`xlsx`、`ods`
 - 輸出：Markdown +（可選）附件圖片 ZIP
 
 ## 已知限制

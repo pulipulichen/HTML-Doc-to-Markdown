@@ -2,15 +2,17 @@
 
 [English](./README.md) | [繁體中文](./README_zh_tw.md)
 
-A browser-based converter that transforms `docx`, `pptx`, `pdf`, `odt`, and `odp` files into Markdown, then packages the Markdown file and extracted attachments into an Obsidian-friendly ZIP.
+A browser-based converter that transforms `docx`, `pptx`, `pdf`, `odt`, `odp`, `xlsx`, and `ods` files into Markdown, then packages the Markdown file and extracted attachments into an Obsidian-friendly ZIP.
 
 Online Demo: [https://pulipulichen.github.io/HTML-Doc-to-Markdown/](https://pulipulichen.github.io/HTML-Doc-to-Markdown/)
+
+Google Sheets Demo File: [HTML Doc to Markdown demo](https://docs.google.com/spreadsheets/d/11pkVxcBIrDiUO3Hpg7l223awkAoz-XaTnLxlywafpUI/edit?usp=sharing)
 
 ## Features
 
 - Drag and drop local files, or pick files from the file input.
 - Convert document content to Markdown with a built-in preview panel.
-- Keep tables as Markdown tables for `docx`, `pptx`, `odt`, and `odp`.
+- Keep tables as Markdown tables for `docx`, `pptx`, `odt`, `odp`, `xlsx`, and `ods`.
 - Extract embedded images (when available) and include them under `attachments/`.
 - Download one ZIP containing:
   - `<filename>.md`
@@ -19,12 +21,13 @@ Online Demo: [https://pulipulichen.github.io/HTML-Doc-to-Markdown/](https://puli
   - Direct downloadable links
   - Google Docs links (exported as `docx`)
   - Google Slides links (exported as `pptx`)
+  - Google Sheets links (exported as `xlsx`)
   - Google Drive file links (converted to direct download URL)
 - Install as a PWA with a service worker for basic offline asset caching.
 
 ## Supported Formats
 
-- Input: `docx`, `pptx`, `pdf`, `odt`, `odp`
+- Input: `docx`, `pptx`, `pdf`, `odt`, `odp`, `xlsx`, `ods`
 - Output: Markdown + optional extracted images in ZIP
 
 ## Known Limitations

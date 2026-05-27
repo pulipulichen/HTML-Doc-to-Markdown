@@ -7,17 +7,17 @@ window.I18N_TRANSLATIONS.en = {
     app: {
         pageTitle: 'Multi-Format Office to Obsidian Converter',
         title: 'Multi-Format Document to Markdown',
-        subtitle: 'Supports <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, and <span class="text-emerald-600">Odp</span> while preserving tables as Markdown tables'
+        subtitle: 'Supports <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, <span class="text-emerald-600">Odp</span>, <span class="text-lime-600">Xlsx</span>, and <span class="text-cyan-600">Ods</span> while preserving tables as Markdown tables'
     },
     dropzone: {
         title: 'Drop files here',
-        hint: 'Supports docx, pptx, pdf, odt, odp formats with table conversion'
+        hint: 'Supports docx, pptx, pdf, odt, odp, xlsx, ods formats with table conversion'
     },
     url: {
         label: 'Or enter a file URL',
-        placeholder: 'https://example.com/file.docx or a Google Drive / Docs / Slides link',
+        placeholder: 'https://example.com/file.docx or a Google Drive / Docs / Slides / Sheets link',
         buttonConvert: 'Download and convert',
-        example: 'A Google Doc sample link is prefilled. Google Docs exports as DOCX, and Google Slides exports as PPTX.'
+        example: 'A Google Doc sample link is prefilled. Google Docs exports as DOCX, Google Slides exports as PPTX, and Google Sheets exports as XLSX.'
     },
     actions: {
         downloadZip: 'Download ZIP'

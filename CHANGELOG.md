@@ -9,8 +9,11 @@
 - Added a dedicated "Download MD" action in the Markdown preview header to export the current Markdown without ZIP packaging.
 - Added URL input support to download a document and convert it directly to Markdown.
 - Added support for converting Google Docs exports (`docx`) and Google Slides exports (`pptx`).
+- Added support for converting Google Sheets exports (`xlsx`) from shared spreadsheet URLs.
 - Added support for converting Google Drive links into direct-download URLs before processing.
 - Added Markdown table preservation for tables in `docx`, `pptx`, `odt`, and `odp`.
+- Added spreadsheet-to-Markdown table conversion for `xlsx` and `ods` files.
+- Added multi-sheet Markdown output with per-sheet section headings to separate sheet content.
 - Added a prefilled Google Doc sample URL for faster URL conversion testing.
 - Added frontend internationalization with `en` and `zh-TW` translation dictionaries under `scripts/modules/i18n/`.
 - Added language detection and persistence (`localStorage` + browser language fallback) with runtime UI language switching.
@@ -47,6 +50,7 @@
 - Reorganized `README.md` into a clear, maintainable English guide aligned with current app behavior and constraints.
 - Added synchronized bilingual documentation via `README_zh_tw.md`, including language switch links and matching section structure.
 - Updated project-structure sections in both `README.md` and `README_zh_tw.md` to remove the deleted `scripts/ui-utils.js` entry.
+- Updated both README files with spreadsheet support details (`xlsx`, `ods`, Google Sheets) and added a public Google Sheets demo link.
 
 ## 0.0.1
 

@@ -68,6 +68,15 @@ function getGoogleDownloadInfo(parsedUrl) {
                 sourceLabel: 'Google Slides'
             };
         }
+
+        if (appType === 'spreadsheets' && fileId) {
+            return {
+                url: `https://docs.google.com/spreadsheets/d/${fileId}/export?format=xlsx`,
+                fallbackName: `google-sheets-${fileId}.xlsx`,
+                extension: 'xlsx',
+                sourceLabel: 'Google Sheets'
+            };
+        }
     }
 
     if (host === 'drive.google.com') {
@@ -174,7 +183,9 @@ function getExtensionFromContentType(contentType) {
         'application/vnd.openxmlformats-officedocument.presentationml.presentation': 'pptx',
         'application/pdf': 'pdf',
         'application/vnd.oasis.opendocument.text': 'odt',
-        'application/vnd.oasis.opendocument.presentation': 'odp'
+        'application/vnd.oasis.opendocument.presentation': 'odp',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
+        'application/vnd.oasis.opendocument.spreadsheet': 'ods'
     };
     return extensions[type] || '';
 }
