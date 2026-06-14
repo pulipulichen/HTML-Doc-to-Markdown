@@ -7,11 +7,11 @@ window.I18N_TRANSLATIONS.ja = {
     app: {
         pageTitle: 'マルチ形式 Office から Obsidian への変換ツール',
         title: 'マルチ形式ドキュメントを Markdown に変換',
-        subtitle: '<span class="text-blue-600">Docx</span>、<span class="text-orange-600">Pptx</span>、<span class="text-red-600">Pdf</span>、<span class="text-green-600">Odt</span>、<span class="text-emerald-600">Odp</span>、<span class="text-lime-600">Xlsx</span>、<span class="text-cyan-600">Ods</span> に対応し、表を Markdown テーブルとして保持します'
+        subtitle: '<span class="text-blue-600">Docx</span>、<span class="text-orange-600">Pptx</span>、<span class="text-red-600">Pdf</span>、<span class="text-green-600">Odt</span>、<span class="text-emerald-600">Odp</span>、<span class="text-lime-600">Xlsx</span>、<span class="text-cyan-600">Ods</span>、<span class="text-violet-600">Md</span>、<span class="text-pink-600">Html</span> に対応し、表を Markdown テーブルとして保持します'
     },
     dropzone: {
         title: 'ここにファイルをドロップ',
-        hint: 'docx、pptx、pdf、odt、odp、xlsx、ods 形式と表変換に対応'
+        hint: 'docx、pptx、pdf、odt、odp、xlsx、ods、md、html 形式と表変換に対応'
     },
     url: {
         label: 'またはファイル URL を入力',

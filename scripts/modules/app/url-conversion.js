@@ -185,7 +185,9 @@ function getExtensionFromContentType(contentType) {
         'application/vnd.oasis.opendocument.text': 'odt',
         'application/vnd.oasis.opendocument.presentation': 'odp',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': 'xlsx',
-        'application/vnd.oasis.opendocument.spreadsheet': 'ods'
+        'application/vnd.oasis.opendocument.spreadsheet': 'ods',
+        'text/markdown': 'md',
+        'text/html': 'html'
     };
     return extensions[type] || '';
 }

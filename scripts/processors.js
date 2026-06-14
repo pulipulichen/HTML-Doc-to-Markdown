@@ -1,5 +1,16 @@
 // --- Processors ---
 
+async function processMarkdown(file) {
+    const text = await file.text();
+    currentData.markdown = extractBase64ImagesFromText(text);
+}
+
+async function processHtml(file) {
+    const html = await file.text();
+    const processedHtml = extractBase64ImagesFromText(html);
+    currentData.markdown = turndownService.turndown(processedHtml);
+}
+
 async function processDocx(file) {
     const arrayBuffer = await file.arrayBuffer();
     const options = {

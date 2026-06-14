@@ -7,11 +7,11 @@ window.I18N_TRANSLATIONS.en = {
     app: {
         pageTitle: 'Multi-Format Office to Obsidian Converter',
         title: 'Multi-Format Document to Markdown',
-        subtitle: 'Supports <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, <span class="text-emerald-600">Odp</span>, <span class="text-lime-600">Xlsx</span>, and <span class="text-cyan-600">Ods</span> while preserving tables as Markdown tables'
+        subtitle: 'Supports <span class="text-blue-600">Docx</span>, <span class="text-orange-600">Pptx</span>, <span class="text-red-600">Pdf</span>, <span class="text-green-600">Odt</span>, <span class="text-emerald-600">Odp</span>, <span class="text-lime-600">Xlsx</span>, <span class="text-cyan-600">Ods</span>, <span class="text-violet-600">Md</span>, and <span class="text-pink-600">Html</span> while preserving tables as Markdown tables'
     },
     dropzone: {
         title: 'Drop files here',
-        hint: 'Supports docx, pptx, pdf, odt, odp, xlsx, ods formats with table conversion'
+        hint: 'Supports docx, pptx, pdf, odt, odp, xlsx, ods, md, and html formats with table conversion'
     },
     url: {
         label: 'Or enter a file URL',

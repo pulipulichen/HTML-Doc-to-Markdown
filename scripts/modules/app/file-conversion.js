@@ -1,4 +1,4 @@
-const SUPPORTED_EXTENSIONS = ['docx', 'pptx', 'pdf', 'odt', 'odp', 'xlsx', 'ods'];
+const SUPPORTED_EXTENSIONS = ['docx', 'pptx', 'pdf', 'odt', 'odp', 'xlsx', 'ods', 'md', 'markdown', 'html', 'htm'];
 
 async function handleFile(file) {
     const ext = file.name.split('.').pop().toLowerCase();
@@ -44,6 +44,14 @@ async function processFileByExtension(ext, file) {
             break;
         case 'ods':
             await processSpreadsheet(file, 'ods');
+            break;
+        case 'md':
+        case 'markdown':
+            await processMarkdown(file);
+            break;
+        case 'html':
+        case 'htm':
+            await processHtml(file);
             break;
     }
 }
