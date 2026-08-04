@@ -42,7 +42,7 @@
 
         <div id="workspaceLayout" class="grid grid-cols-1 gap-4 items-start">
             <!-- 左欄：操作區 -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 lg:sticky lg:top-4 lg:self-start lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
                 <div id="dropZone" class="drop-zone rounded-xl p-5 text-center cursor-pointer mb-3 group hover:border-indigo-400">
                     <div class="flex flex-col items-center">
                         <svg class="w-8 h-8 text-slate-400 mb-2 group-hover:text-indigo-500 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,45 +86,69 @@
             </div>
 
             <!-- 右欄：預覽區（上 Markdown、下 Attachments） -->
-            <div id="previewContainer" class="hidden flex flex-col gap-4">
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[32vh] min-h-[200px]">
-                <div class="bg-slate-50 px-3 py-2 border-b border-slate-200 flex justify-between items-center">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold px-2 py-1 rounded" id="fileTypeBadge"></span>
-                        <span class="text-sm font-bold text-slate-700" data-i18n-text="preview.markdown">Markdown Preview</span>
-                    </div>
-                    <div class="flex items-center gap-2">
+            <div id="previewContainer" class="hidden flex flex-col gap-4 lg:min-h-[calc(100vh-8rem)]">
+                <section id="markdownPanel" class="preview-panel bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-[200px] max-h-[50vh]">
+                    <div class="bg-slate-50 px-3 py-2 border-b border-slate-200 flex justify-between items-center gap-2">
                         <button
-                            id="downloadMarkdownBtn"
+                            id="markdownPanelToggle"
                             type="button"
-                            class="text-xs font-bold px-2 py-1 rounded bg-indigo-100 hover:bg-indigo-200 text-indigo-700 transition"
-                            data-i18n-text="preview.downloadMarkdown"
+                            class="preview-panel-toggle flex items-center gap-2 min-w-0 text-left rounded-md hover:bg-slate-100 px-1 py-0.5 transition"
+                            aria-expanded="true"
+                            aria-controls="markdownPanelBody"
                         >
-                            Download MD
+                            <svg class="preview-panel-chevron w-4 h-4 text-slate-500 shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                            <span class="text-xs font-bold px-2 py-1 rounded" id="fileTypeBadge"></span>
+                            <span class="text-sm font-bold text-slate-700 truncate" data-i18n-text="preview.markdown">Markdown Preview</span>
                         </button>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button
+                                id="downloadMarkdownBtn"
+                                type="button"
+                                class="text-xs font-bold px-2 py-1 rounded bg-indigo-100 hover:bg-indigo-200 text-indigo-700 transition"
+                                data-i18n-text="preview.downloadMarkdown"
+                            >
+                                Download MD
+                            </button>
+                            <button
+                                id="copyMarkdownBtn"
+                                type="button"
+                                class="text-xs font-bold px-2 py-1 rounded bg-indigo-100 hover:bg-indigo-200 text-indigo-700 transition"
+                                data-i18n-text="preview.copyMarkdown"
+                            >
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+                    <div id="markdownPanelBody" class="preview-panel-body p-4 flex-grow overflow-auto scrollbar-thin min-h-0">
+                        <pre id="markdownPreview" class="text-sm leading-relaxed text-slate-800"></pre>
+                    </div>
+                </section>
+
+                <section id="attachmentsPanel" class="preview-panel bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-[200px] max-h-[50vh]">
+                    <div class="bg-slate-50 px-3 py-2 border-b border-slate-200 flex justify-between items-center gap-2">
                         <button
-                            id="copyMarkdownBtn"
+                            id="attachmentsPanelToggle"
                             type="button"
-                            class="text-xs font-bold px-2 py-1 rounded bg-indigo-100 hover:bg-indigo-200 text-indigo-700 transition"
-                            data-i18n-text="preview.copyMarkdown"
+                            class="preview-panel-toggle flex items-center gap-2 min-w-0 text-left rounded-md hover:bg-slate-100 px-1 py-0.5 transition"
+                            aria-expanded="true"
+                            aria-controls="attachmentsPanelBody"
                         >
-                            Copy
+                            <svg class="preview-panel-chevron w-4 h-4 text-slate-500 shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                            <span class="text-sm font-bold text-slate-700 truncate">
+                                <span data-i18n-text="preview.attachments">Attachments</span> (<span id="imageCount">0</span>)
+                            </span>
                         </button>
                     </div>
-                </div>
-                <div class="p-4 flex-grow overflow-auto scrollbar-thin">
-                    <pre id="markdownPreview" class="text-sm leading-relaxed text-slate-800"></pre>
-                </div>
-            </div>
-            
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col h-[32vh] min-h-[200px]">
-                <div class="bg-slate-50 px-3 py-2 border-b border-slate-200 flex justify-between items-center">
-                    <span class="text-sm font-bold text-slate-700"><span data-i18n-text="preview.attachments">Attachments</span> (<span id="imageCount">0</span>)</span>
-                </div>
-                <div id="imagePreview" class="p-3 grid grid-cols-2 sm:grid-cols-3 gap-3 flex-grow overflow-auto bg-slate-50/50 scrollbar-thin">
-                    <!-- 圖片會顯示在這裡 -->
-                </div>
-            </div>
+                    <div id="attachmentsPanelBody" class="preview-panel-body flex-grow min-h-0 overflow-hidden">
+                        <div id="imagePreview" class="p-3 grid grid-cols-2 sm:grid-cols-3 gap-3 h-full overflow-auto bg-slate-50/50 scrollbar-thin">
+                            <!-- 圖片會顯示在這裡 -->
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
@@ -153,8 +177,26 @@
                         Download image
                     </button>
                 </div>
-                <div class="flex-1 min-h-0 bg-slate-100 rounded-lg overflow-auto">
-                    <img id="imageModalPreview" class="w-full h-full object-contain" alt="">
+                <div class="relative flex-1 min-h-0 bg-slate-100 rounded-lg overflow-hidden">
+                    <button
+                        id="imageModalPrev"
+                        type="button"
+                        class="absolute left-2 top-1/2 -translate-y-1/2 z-10 hidden h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-slate-800/70 hover:bg-slate-800 text-white text-2xl leading-none flex items-center justify-center shadow transition"
+                        aria-label="Previous image"
+                    >
+                        ‹
+                    </button>
+                    <button
+                        id="imageModalNext"
+                        type="button"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 z-10 hidden h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-slate-800/70 hover:bg-slate-800 text-white text-2xl leading-none flex items-center justify-center shadow transition"
+                        aria-label="Next image"
+                    >
+                        ›
+                    </button>
+                    <div class="h-full overflow-auto">
+                        <img id="imageModalPreview" class="w-full h-full object-contain" alt="">
+                    </div>
                 </div>
             </div>
         </div>

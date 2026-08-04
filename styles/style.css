@@ -13,3 +13,27 @@ pre {
 .scrollbar-thin::-webkit-scrollbar { width: 6px; }
 .scrollbar-thin::-webkit-scrollbar-track { background: #f1f1f1; }
 .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+.preview-panel.is-collapsed {
+    flex: 0 0 auto;
+    min-height: 0;
+    max-height: none;
+}
+
+.preview-panel.is-collapsed .preview-panel-body {
+    display: none;
+}
+
+.preview-panel.is-collapsed .preview-panel-chevron {
+    transform: rotate(-90deg);
+}
+
+.preview-panel.is-collapsed .bg-slate-50 {
+    border-bottom-width: 0;
+}
+
+#previewContainer.has-collapsed-panel .preview-panel:not(.is-collapsed) {
+    flex: 1 1 auto;
+    max-height: none;
+    min-height: min(70vh, 640px);
+}

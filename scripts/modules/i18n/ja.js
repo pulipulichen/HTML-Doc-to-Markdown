@@ -30,7 +30,11 @@ window.I18N_TRANSLATIONS.ja = {
         copyImage: 'コピー',
         downloadImage: 'ダウンロード',
         downloadSingleImage: '画像をダウンロード',
-        closeImagePreview: '閉じる'
+        closeImagePreview: '閉じる',
+        previousImage: '前の画像',
+        nextImage: '次の画像',
+        collapsePanel: '折りたたむ',
+        expandPanel: '展開'
     },
     status: {
         unsupportedFormat: '未対応の形式です: {ext}',

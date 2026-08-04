@@ -1,9 +1,67 @@
+function bindPreviewPanelEvents() {
+    if (markdownPanelToggle && markdownPanel) {
+        markdownPanelToggle.addEventListener('click', function () {
+            togglePreviewPanel(markdownPanel, markdownPanelToggle);
+        });
+    }
+    if (attachmentsPanelToggle && attachmentsPanel) {
+        attachmentsPanelToggle.addEventListener('click', function () {
+            togglePreviewPanel(attachmentsPanel, attachmentsPanelToggle);
+        });
+    }
+
+    window.addEventListener('languagechange', updatePreviewPanelToggleLabels);
+    updatePreviewPanelToggleLabels();
+    syncPreviewPanelLayout();
+}
+
+function togglePreviewPanel(panel, toggleButton) {
+    if (!panel || !toggleButton) return;
+    panel.classList.toggle('is-collapsed');
+    syncPreviewPanelLayout();
+    updatePreviewPanelToggleLabels();
+}
+
+function syncPreviewPanelLayout() {
+    if (!previewContainer) return;
+
+    const panels = [markdownPanel, attachmentsPanel].filter(Boolean);
+    const hasCollapsed = panels.some(function (panel) {
+        return panel.classList.contains('is-collapsed');
+    });
+    previewContainer.classList.toggle('has-collapsed-panel', hasCollapsed);
+
+    panels.forEach(function (panel) {
+        const toggleButton = panel.querySelector('.preview-panel-toggle');
+        const isCollapsed = panel.classList.contains('is-collapsed');
+        if (toggleButton) {
+            toggleButton.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+        }
+    });
+}
+
+function updatePreviewPanelToggleLabels() {
+    updatePreviewPanelToggleLabel(markdownPanelToggle, markdownPanel);
+    updatePreviewPanelToggleLabel(attachmentsPanelToggle, attachmentsPanel);
+}
+
+function updatePreviewPanelToggleLabel(toggleButton, panel) {
+    if (!toggleButton || !panel) return;
+    const isCollapsed = panel.classList.contains('is-collapsed');
+    const label = isCollapsed
+        ? tMessage('preview.expandPanel', {}, 'Expand')
+        : tMessage('preview.collapsePanel', {}, 'Collapse');
+    toggleButton.setAttribute('aria-label', label);
+    toggleButton.setAttribute('title', label);
+}
+
 function displayResult() {
     workspaceLayout.classList.add('lg:grid-cols-[340px_minmax(0,1fr)]');
     previewContainer.classList.remove('hidden');
     actionButtons.classList.remove('hidden');
     markdownPreview.textContent = currentData.markdown;
     imageCountDisplay.textContent = currentData.images.length;
+    syncPreviewPanelLayout();
 
     const badge = fileTypeBadge;
     badge.textContent = currentData.extension.toUpperCase();
@@ -63,7 +121,7 @@ function displayResult() {
         downloadBtnSingle.className = 'text-[10px] px-2 py-1 rounded bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold transition';
         downloadBtnSingle.textContent = tMessage('preview.downloadImage', {}, 'Download');
         downloadBtnSingle.addEventListener('click', function () {
-            saveAs(img.blob, img.name);
+            saveAs(img.blob, getImageDownloadFileName(img.name));
         });
 
         buttonGroup.append(copyBtnSingle, downloadBtnSingle);

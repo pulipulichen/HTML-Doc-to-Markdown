@@ -20,6 +20,12 @@
 - Added Japanese (`ja`) UI localization, including a language-switcher option, translation dictionary, and browser-language detection support.
 - Added a root `.jslintrc` to centralize browser/global JSHint configuration for app scripts and E2E tests.
 - Added attachment image interactions: click-to-enlarge modal preview and per-image download actions in the attachments panel.
+- Added Markdown (`.md`, `.markdown`) and HTML (`.html`, `.htm`) input support.
+- Added extraction of embedded `data:image/...;base64,...` images from Markdown and HTML into attachment files, replacing data URIs with `attachments/` links.
+- Prefixed single-image downloads with the source document filename (for example, `report_image_8.png`).
+- Added previous/next navigation in the image preview modal, controllable by on-screen arrows or keyboard left/right keys.
+- Added collapsible Markdown Preview and Attachments panels so either section can be focused while browsing results.
+- Made the left action panel sticky on large screens while scrolling the preview column.
 
 ### Changed (0.0.2)
 
@@ -46,6 +52,7 @@
 - Removed the obsolete `scripts/ui-utils.js` stub after completing the UI-module migration to avoid redundant files.
 - Moved per-file JSHint ES-version directives into centralized lint config (`.jslintrc` and `.jshintrc`) and removed inline `/* jshint esversion: 11 */` headers.
 - Removed stale `./scripts/ui-utils.js` from the Service Worker precache list to keep offline assets in sync with the current script graph.
+- Renamed extracted base64 attachment images from `image_N.ext` to `YYYYMMDD-HHmmSS_N.ext` (shared conversion timestamp plus sequential index).
 
 ### Documentation (0.0.2)
 

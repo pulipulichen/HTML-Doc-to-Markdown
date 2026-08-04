@@ -4,6 +4,7 @@ function initMainEventListeners() {
     bindUrlConvertEvents();
     bindExportEvents();
     bindClipboardEvents();
+    bindPreviewPanelEvents();
     bindImagePreviewEvents();
 }
 

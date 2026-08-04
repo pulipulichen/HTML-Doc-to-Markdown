@@ -30,7 +30,11 @@ window.I18N_TRANSLATIONS.en = {
         copyImage: 'Copy',
         downloadImage: 'Download',
         downloadSingleImage: 'Download image',
-        closeImagePreview: 'Close'
+        closeImagePreview: 'Close',
+        previousImage: 'Previous image',
+        nextImage: 'Next image',
+        collapsePanel: 'Collapse',
+        expandPanel: 'Expand'
     },
     status: {
         unsupportedFormat: 'Unsupported format: {ext}',

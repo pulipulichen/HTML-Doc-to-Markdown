@@ -30,7 +30,11 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
         copyImage: '複製',
         downloadImage: '下載',
         downloadSingleImage: '下載圖片',
-        closeImagePreview: '關閉'
+        closeImagePreview: '關閉',
+        previousImage: '上一張圖片',
+        nextImage: '下一張圖片',
+        collapsePanel: '收合',
+        expandPanel: '展開'
     },
     status: {
         unsupportedFormat: '不支援的格式：{ext}',
