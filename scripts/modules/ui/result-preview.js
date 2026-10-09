@@ -136,13 +136,29 @@ async function copyImageToClipboard(blob) {
         throw new Error('clipboard-image-unsupported');
     }
 
-    const mimeType = blob.type || 'image/png';
-    const clipboardBlob = blob.type ? blob : new Blob([blob], { type: mimeType });
-    await navigator.clipboard.write([
-        new ClipboardItem({
-            [mimeType]: clipboardBlob
-        })
-    ]);
+    // Clipboard image writes are broadly supported as PNG, but not as JPEG/WebP.
+    // Normalize extracted attachments before creating the ClipboardItem.
+    const imageBitmap = await createImageBitmap(blob);
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.width = imageBitmap.width;
+        canvas.height = imageBitmap.height;
+        const context = canvas.getContext('2d');
+        if (!context) throw new Error('clipboard-image-conversion-failed');
+        context.drawImage(imageBitmap, 0, 0);
+
+        const clipboardBlob = await new Promise(function (resolve, reject) {
+            canvas.toBlob(function (pngBlob) {
+                if (pngBlob) resolve(pngBlob);
+                else reject(new Error('clipboard-image-conversion-failed'));
+            }, 'image/png');
+        });
+        await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': clipboardBlob })
+        ]);
+    } finally {
+        imageBitmap.close();
+    }
 }
 
 function clearPreviewImageObjectUrls() {
