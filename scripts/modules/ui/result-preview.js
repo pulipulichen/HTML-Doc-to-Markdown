@@ -13,6 +13,7 @@ function bindPreviewPanelEvents() {
     window.addEventListener('languagechange', updatePreviewPanelToggleLabels);
     updatePreviewPanelToggleLabels();
     syncPreviewPanelLayout();
+    initializeAttachmentSizeControl();
 }
 
 function togglePreviewPanel(panel, toggleButton) {
@@ -80,7 +81,7 @@ function displayResult() {
         const thumbnailUrl = URL.createObjectURL(img.blob);
         previewImageObjectUrls.push(thumbnailUrl);
         imgEl.src = thumbnailUrl;
-        imgEl.className = 'w-full h-24 object-contain mb-2 rounded bg-slate-100 cursor-zoom-in';
+        imgEl.className = 'attachment-thumbnail w-full object-contain mb-2 rounded bg-slate-100 cursor-zoom-in';
         imgEl.alt = img.name;
         imgEl.addEventListener('click', function () {
             openImageModal(index);
@@ -166,4 +167,51 @@ function clearPreviewImageObjectUrls() {
         URL.revokeObjectURL(imageUrl);
     });
     previewImageObjectUrls = [];
+}
+
+function initializeAttachmentSizeControl() {
+    const header = attachmentsPanel && attachmentsPanel.querySelector('.bg-slate-50');
+    if (!header || document.getElementById('attachmentSizeSlider')) return;
+
+    const control = document.createElement('label');
+    control.className = 'flex items-center gap-1.5 shrink-0 text-xs text-slate-600';
+    const caption = document.createElement('span');
+    caption.textContent = 'Size';
+    caption.setAttribute('data-attachment-size-caption', '');
+    const slider = document.createElement('input');
+    slider.id = 'attachmentSizeSlider';
+    slider.type = 'range';
+    slider.min = '100';
+    slider.max = '320';
+    slider.step = '20';
+    slider.className = 'w-20 sm:w-28 accent-indigo-600';
+    slider.setAttribute('aria-label', 'Attachment preview size');
+    const value = document.createElement('output');
+    value.className = 'w-9 text-right tabular-nums';
+    let saved = 160;
+    try {
+        const stored = Number(localStorage.getItem('attachmentPreviewSize'));
+        if (Number.isFinite(stored) && stored >= 100 && stored <= 320) saved = stored;
+    } catch (_) { /* Storage may be disabled. */ }
+    slider.value = String(saved);
+    function applySize() {
+        const size = Number(slider.value);
+        imagePreview.style.setProperty('--attachment-card-width', size + 'px');
+        imagePreview.style.setProperty('--attachment-thumbnail-height', Math.round(size * 0.75) + 'px');
+        value.textContent = size + 'px';
+    }
+    slider.addEventListener('input', function () {
+        applySize();
+        try { localStorage.setItem('attachmentPreviewSize', slider.value); } catch (_) {}
+    });
+    function updateCaption() {
+        const lang = document.documentElement.lang || '';
+        caption.textContent = lang.startsWith('zh') ? '預覽大小' : lang.startsWith('ja') ? 'サイズ' : 'Size';
+        slider.setAttribute('aria-label', caption.textContent);
+    }
+    window.addEventListener('languagechange', updateCaption);
+    control.append(caption, slider, value);
+    header.appendChild(control);
+    updateCaption();
+    applySize();
 }
