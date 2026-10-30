@@ -37,3 +37,30 @@ pre {
     max-height: none;
     min-height: min(70vh, 640px);
 }
+
+/* Keep the attachment gallery in the document scroll flow on narrow screens. */
+@media (max-width: 1023px) {
+    #previewContainer { min-height: 0; }
+    #attachmentsPanel,
+    #previewContainer.has-collapsed-panel #attachmentsPanel:not(.is-collapsed) {
+        flex: 0 0 auto;
+        max-height: none;
+        min-height: 0;
+        overflow: visible;
+    }
+    #attachmentsPanelBody { overflow: visible; }
+    #imagePreview {
+        height: auto;
+        overflow: visible;
+        align-content: start;
+    }
+    #markdownPanel:not(.is-collapsed) { flex: 0 0 auto; height: min(50vh, 440px); }
+    #markdownPanel.is-collapsed { height: auto; }
+}
+/* User-adjustable thumbnail size, independent of the number of attachments. */
+#imagePreview {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--attachment-card-width, 160px)), 1fr));
+}
+#imagePreview .attachment-thumbnail {
+    height: var(--attachment-thumbnail-height, 120px);
+}
