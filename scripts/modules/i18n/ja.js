@@ -20,7 +20,8 @@ window.I18N_TRANSLATIONS.ja = {
         example: 'Google ドキュメントのサンプルリンクが入力済みです。Google Docs は DOCX、Google Slides は PPTX、Google Sheets は XLSX として書き出されます。'
     },
     actions: {
-        downloadZip: 'ZIP をダウンロード'
+        downloadZip: 'ZIP をダウンロード',
+        downloadOpaquePngZip: '白背景 PNG をまとめてダウンロード（ZIP）'
     },
     preview: {
         markdown: 'Markdown プレビュー',
@@ -29,7 +30,9 @@ window.I18N_TRANSLATIONS.ja = {
         attachments: '添付ファイル',
         copyImage: 'コピー',
         downloadImage: 'ダウンロード',
+        downloadOpaquePng: 'PNG（白背景）',
         downloadSingleImage: '画像をダウンロード',
+        downloadSingleOpaquePng: 'PNG（白背景）をダウンロード',
         closeImagePreview: '閉じる',
         previousImage: '前の画像',
         nextImage: '次の画像',
@@ -53,7 +56,8 @@ window.I18N_TRANSLATIONS.ja = {
         copyFailed: 'Markdown をコピーできませんでした。手動でコピーしてください。',
         copyImageSuccess: '画像をクリップボードにコピーしました！',
         copyImageFailed: '画像をコピーできませんでした。ダウンロードをお試しください。',
-        copyImageUnsupported: 'このブラウザは画像コピーに対応していません。'
+        copyImageUnsupported: 'このブラウザは画像コピーに対応していません。',
+        opaquePngFailed: 'PNG の書き出しに失敗しました。元の画像をダウンロードしてください。'
     },
     errors: {
         downloadBlockedByCors: 'この URL からダウンロードできません。配信元サイトがブラウザのクロスオリジン要求を拒否している可能性があります。CORS が有効な直接 URL を使うか、先にファイルをダウンロードしてからドラッグしてください。',

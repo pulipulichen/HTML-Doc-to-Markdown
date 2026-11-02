@@ -20,7 +20,8 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
         example: '範例已填入 Google Doc 連結；Google Docs 會匯出為 DOCX，Google Slides 會匯出為 PPTX，Google Sheets 會匯出為 XLSX。'
     },
     actions: {
-        downloadZip: '下載 ZIP'
+        downloadZip: '下載 ZIP',
+        downloadOpaquePngZip: '下載全部白底 PNG（ZIP）'
     },
     preview: {
         markdown: 'Markdown 預覽',
@@ -29,7 +30,9 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
         attachments: '附件資源',
         copyImage: '複製',
         downloadImage: '下載',
+        downloadOpaquePng: 'PNG 白底',
         downloadSingleImage: '下載圖片',
+        downloadSingleOpaquePng: '下載 PNG（白色背景）',
         closeImagePreview: '關閉',
         previousImage: '上一張圖片',
         nextImage: '下一張圖片',
@@ -53,7 +56,8 @@ window.I18N_TRANSLATIONS['zh-TW'] = {
         copyFailed: '無法複製 Markdown，請手動複製。',
         copyImageSuccess: '已複製圖片到剪貼簿！',
         copyImageFailed: '無法複製圖片，請改用下載。',
-        copyImageUnsupported: '此瀏覽器不支援複製圖片。'
+        copyImageUnsupported: '此瀏覽器不支援複製圖片。',
+        opaquePngFailed: '無法匯出白底 PNG，請改為下載原始圖片。'
     },
     errors: {
         downloadBlockedByCors: '無法從此網址下載。對方網站可能未允許瀏覽器跨網域讀取，請改用可公開存取且允許 CORS 的直連網址，或先下載後再拖放檔案。',

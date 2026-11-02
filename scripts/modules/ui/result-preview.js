@@ -62,6 +62,9 @@ function displayResult() {
     actionButtons.classList.remove('hidden');
     markdownPreview.textContent = currentData.markdown;
     imageCountDisplay.textContent = currentData.images.length;
+    if (downloadOpaquePngZipBtn) {
+        downloadOpaquePngZipBtn.classList.toggle('hidden', currentData.images.length === 0);
+    }
     syncPreviewPanelLayout();
 
     const badge = fileTypeBadge;
@@ -95,7 +98,7 @@ function displayResult() {
         span.textContent = img.name;
 
         const buttonGroup = document.createElement('div');
-        buttonGroup.className = 'w-full flex justify-end items-center gap-2';
+        buttonGroup.className = 'w-full flex flex-wrap justify-end items-center gap-1';
 
         const copyBtnSingle = document.createElement('button');
         copyBtnSingle.type = 'button';
@@ -125,7 +128,15 @@ function displayResult() {
             saveAs(img.blob, getImageDownloadFileName(img.name));
         });
 
-        buttonGroup.append(copyBtnSingle, downloadBtnSingle);
+        const opaquePngBtn = document.createElement('button');
+        opaquePngBtn.type = 'button';
+        opaquePngBtn.className = 'attachment-opaque-download text-[10px] px-2 py-1 rounded border border-indigo-200 hover:bg-indigo-50 text-indigo-700 font-semibold transition';
+        opaquePngBtn.textContent = tMessage('preview.downloadOpaquePng', {}, 'PNG (white bg)');
+        opaquePngBtn.addEventListener('click', function () {
+            downloadOpaquePngImage(img);
+        });
+
+        buttonGroup.append(copyBtnSingle, downloadBtnSingle, opaquePngBtn);
         actions.append(span, buttonGroup);
         div.append(imgEl, actions);
         imagePreview.appendChild(div);

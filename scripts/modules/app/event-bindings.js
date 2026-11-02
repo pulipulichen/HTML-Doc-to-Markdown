@@ -52,6 +52,12 @@ function bindExportEvents() {
         downloadCurrentAsZip();
     });
 
+    if (downloadOpaquePngZipBtn) {
+        downloadOpaquePngZipBtn.addEventListener('click', function () {
+            downloadCurrentOpaquePngZip();
+        });
+    }
+
     downloadMarkdownBtn.addEventListener('click', function () {
         const downloaded = downloadCurrentAsMarkdown();
         if (!downloaded) {

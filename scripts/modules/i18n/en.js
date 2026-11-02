@@ -20,7 +20,8 @@ window.I18N_TRANSLATIONS.en = {
         example: 'A Google Doc sample link is prefilled. Google Docs exports as DOCX, Google Slides exports as PPTX, and Google Sheets exports as XLSX.'
     },
     actions: {
-        downloadZip: 'Download ZIP'
+        downloadZip: 'Download ZIP',
+        downloadOpaquePngZip: 'Download all PNGs (white background)'
     },
     preview: {
         markdown: 'Markdown Preview',
@@ -29,7 +30,9 @@ window.I18N_TRANSLATIONS.en = {
         attachments: 'Attachments',
         copyImage: 'Copy',
         downloadImage: 'Download',
+        downloadOpaquePng: 'PNG (white bg)',
         downloadSingleImage: 'Download image',
+        downloadSingleOpaquePng: 'Download PNG (white background)',
         closeImagePreview: 'Close',
         previousImage: 'Previous image',
         nextImage: 'Next image',
@@ -53,7 +56,8 @@ window.I18N_TRANSLATIONS.en = {
         copyFailed: 'Unable to copy Markdown. Please copy manually.',
         copyImageSuccess: 'Image copied to clipboard!',
         copyImageFailed: 'Unable to copy image. Please download it.',
-        copyImageUnsupported: 'This browser does not support image copy.'
+        copyImageUnsupported: 'This browser does not support image copy.',
+        opaquePngFailed: 'Unable to export PNG. Please download the original image.'
     },
     errors: {
         downloadBlockedByCors: 'Unable to download from this URL. The source site may block cross-origin browser requests. Use a direct URL with CORS enabled, or download the file first and then drag it in.',
