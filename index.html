@@ -82,12 +82,15 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         <span data-i18n-text="actions.downloadZip">Download Obsidian ZIP package</span>
                     </button>
+                    <button id="downloadOpaquePngZipBtn" type="button" class="hidden w-full mt-2 bg-white hover:bg-slate-50 border border-indigo-300 text-indigo-700 px-4 py-2 rounded-lg font-semibold transition text-sm" data-i18n-text="actions.downloadOpaquePngZip">
+                        Download all PNGs (white background)
+                    </button>
                 </div>
             </div>
 
             <!-- 右欄：預覽區（上 Markdown、下 Attachments） -->
-            <div id="previewContainer" class="hidden flex flex-col gap-4 lg:min-h-[calc(100vh-8rem)]">
-                <section id="markdownPanel" class="preview-panel bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-[200px] max-h-[50vh]">
+            <div id="previewContainer" class="hidden flex flex-col gap-4">
+                <section id="markdownPanel" class="preview-panel bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col">
                     <div class="bg-slate-50 px-3 py-2 border-b border-slate-200 flex justify-between items-center gap-2">
                         <button
                             id="markdownPanelToggle"
@@ -126,7 +129,7 @@
                     </div>
                 </section>
 
-                <section id="attachmentsPanel" class="preview-panel bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col flex-1 min-h-[200px] max-h-[50vh]">
+                <section id="attachmentsPanel" class="preview-panel bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col">
                     <div class="bg-slate-50 px-3 py-2 border-b border-slate-200 flex justify-between items-center gap-2">
                         <button
                             id="attachmentsPanelToggle"
@@ -143,8 +146,8 @@
                             </span>
                         </button>
                     </div>
-                    <div id="attachmentsPanelBody" class="preview-panel-body flex-grow min-h-0 overflow-hidden">
-                        <div id="imagePreview" class="p-3 grid grid-cols-2 sm:grid-cols-3 gap-3 h-full overflow-auto bg-slate-50/50 scrollbar-thin">
+                    <div id="attachmentsPanelBody" class="preview-panel-body">
+                        <div id="imagePreview" class="p-3 grid gap-3 bg-slate-50/50">
                             <!-- 圖片會顯示在這裡 -->
                         </div>
                     </div>
@@ -168,14 +171,24 @@
             <div class="bg-white rounded-xl shadow-xl p-4 sm:p-6 flex-1 flex flex-col min-h-0">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                     <span id="imageModalFileName" class="text-sm font-semibold text-slate-700 truncate"></span>
-                    <button
-                        id="imageModalDownload"
-                        type="button"
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition"
-                        data-i18n-text="preview.downloadSingleImage"
-                    >
-                        Download image
-                    </button>
+                    <div class="flex flex-wrap gap-2">
+                        <button
+                            id="imageModalDownload"
+                            type="button"
+                            class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-lg font-semibold transition"
+                            data-i18n-text="preview.downloadSingleImage"
+                        >
+                            Download image
+                        </button>
+                        <button
+                            id="imageModalDownloadOpaquePng"
+                            type="button"
+                            class="bg-white hover:bg-slate-50 border border-indigo-300 text-indigo-700 text-sm px-4 py-2 rounded-lg font-semibold transition"
+                            data-i18n-text="preview.downloadSingleOpaquePng"
+                        >
+                            Download PNG (white background)
+                        </button>
+                    </div>
                 </div>
                 <div class="relative flex-1 min-h-0 bg-slate-100 rounded-lg overflow-hidden">
                     <button

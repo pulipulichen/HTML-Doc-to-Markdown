@@ -6,6 +6,12 @@ function bindImagePreviewEvents() {
         if (event.target === imageModal) closeImageModal();
     });
     imageModalDownload.addEventListener('click', downloadActiveImage);
+    if (imageModalDownloadOpaquePng) {
+        imageModalDownloadOpaquePng.addEventListener('click', function () {
+            const imageData = currentData.images[activeImageIndex];
+            if (imageData) downloadOpaquePngImage(imageData);
+        });
+    }
 
     if (imageModalPrev) {
         imageModalPrev.addEventListener('click', function (event) {
@@ -124,4 +130,42 @@ function downloadActiveImage() {
     const imageData = currentData.images[activeImageIndex];
     if (!imageData) return;
     saveAs(imageData.blob, getImageDownloadFileName(imageData.name));
+}
+
+
+/* Composite each image onto white before encoding to avoid transparent PNG pixels. */
+async function createOpaquePng(imageBlob) {
+    const bitmap = await createImageBitmap(imageBlob);
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.width = bitmap.width;
+        canvas.height = bitmap.height;
+        const context = canvas.getContext('2d');
+        if (!context) throw new Error('Could not create image canvas');
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(bitmap, 0, 0);
+        return await new Promise(function (resolve, reject) {
+            canvas.toBlob(function (png) {
+                if (png) resolve(png);
+                else reject(new Error('Could not encode opaque PNG'));
+            }, 'image/png');
+        });
+    } finally {
+        bitmap.close();
+    }
+}
+
+function getOpaquePngFileName(imageName) {
+    return imageName.replace(/\.[^./\\]+$/, '') + '_white-bg.png';
+}
+
+async function downloadOpaquePngImage(imageData) {
+    try {
+        const png = await createOpaquePng(imageData.blob);
+        saveAs(png, getImageDownloadFileName(getOpaquePngFileName(imageData.name)));
+    } catch (error) {
+        console.error('Opaque PNG export failed:', error);
+        showMessage(tMessage('status.opaquePngFailed', {}, 'Unable to export PNG. Please download the original image.'), 'error');
+    }
 }
