@@ -1,9 +1,22 @@
-const CACHE_NAME = 'office-to-obsidian-v5';
+const CACHE_NAME = 'office-to-obsidian-v6';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './styles/style.css',
   './scripts/globals.js',
+  './scripts/modules/base64-images.js',
+  './scripts/modules/i18n.js',
+  './scripts/modules/i18n/en.js',
+  './scripts/modules/i18n/zh-TW.js',
+  './scripts/modules/i18n/ja.js',
+  './scripts/modules/ui/image-modal.js',
+  './scripts/modules/ui/result-preview.js',
+  './scripts/modules/ui/status-message.js',
+  './scripts/modules/app/messages.js',
+  './scripts/modules/app/file-conversion.js',
+  './scripts/modules/app/url-conversion.js',
+  './scripts/modules/app/export-zip.js',
+  './scripts/modules/app/event-bindings.js',
   './scripts/processors.js',
   './manifest.json',
   './assets/favicon/favicon.png',
